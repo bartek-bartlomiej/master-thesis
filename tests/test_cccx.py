@@ -4,7 +4,8 @@ from typing import List, Tuple, Dict, Callable
 from qiskit.circuit import Gate
 
 from gates.cccx import triple_controlled_not
-from tests.wip import QuantumExperiment, GateTest
+from tests.experiment import QuantumExperiment
+from tests.test_gate import GateTest
 
 
 class CCCXTestCase(unittest.TestCase):
