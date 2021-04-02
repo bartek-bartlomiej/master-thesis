@@ -1,26 +1,28 @@
 from abc import ABC, abstractmethod
 from itertools import chain
-from typing import Dict, List, Tuple
+from typing import List
 
-from qiskit import QuantumRegister, QuantumCircuit, ClassicalRegister, execute, Aer
+from qiskit import QuantumCircuit, ClassicalRegister, execute, Aer
 from qiskit.circuit import Gate
 from qiskit.providers import Backend
 from qiskit.result import Result
 
-from utils import as_bits_reversed
+from utils.bits import as_bits_reversed
+from utils.circuit_creation import create_circuit
+from utils.typing_ import QRegsSpec, Name, ValuesMap
 
 
 class QuantumExperiment(ABC):
     def __init__(self, backend: Backend = Aer.get_backend('qasm_simulator')):
         self._backend = backend
 
-    def run(self, initial_values: Dict[str, int], name: str) -> Result:
+    def run(self, initial_values: ValuesMap, name: Name) -> Result:
         circuit = self._construct_circuit(initial_values, name)
         job = execute(circuit, self._backend, shots=1)
         return job.result()
 
-    def _construct_circuit(self, initial_values: Dict[str, int], name: str) -> QuantumCircuit:
-        circuit = _create_circuit(self._qregs_spec, name)
+    def _construct_circuit(self, initial_values: ValuesMap, name: Name) -> QuantumCircuit:
+        circuit = create_circuit(self._qregs_spec, name)
         _initialize(circuit, initial_values)
         _append_gate(circuit, self._gate)
         _measure(circuit)
@@ -29,25 +31,20 @@ class QuantumExperiment(ABC):
 
     @property
     @abstractmethod
-    def _qregs_spec(self) -> List[Tuple[str, int]]:
-        pass
-
-    @property
-    @abstractmethod
     def _gate(self) -> Gate:
         pass
 
     @property
-    def qreg_names(self) -> List[str]:
+    @abstractmethod
+    def _qregs_spec(self) -> QRegsSpec:
+        pass
+
+    @property
+    def qreg_names(self) -> List[Name]:
         return [name for (name, _) in self._qregs_spec]
 
 
-def _create_circuit(regs_data: List[Tuple[str, int]], name: str) -> QuantumCircuit:
-    qregs = [QuantumRegister(size, name=name) for (name, size) in regs_data]
-    return QuantumCircuit(*qregs, name=name)
-
-
-def _initialize(circuit: QuantumCircuit, values: Dict[str, int]) -> None:
+def _initialize(circuit: QuantumCircuit, values: ValuesMap) -> None:
     for qreg in circuit.qregs:
         value = values.get(qreg.name, 0)
         value_str = as_bits_reversed(value, qreg.size)

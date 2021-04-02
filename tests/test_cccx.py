@@ -1,54 +1,47 @@
 import unittest
-from typing import List, Tuple, Dict, Callable
 
 from qiskit.circuit import Gate
 
-from gates.cccx import triple_controlled_not
+from gates.cccx import triple_controlled_not, cccx_regs
 from tests.experiment import QuantumExperiment
 from tests.test_gate import GateTest
+from utils.typing_ import QRegsSpec, ComputationsMap, ValuesMap
 
 
 class CCCXTestCase(unittest.TestCase):
     def test_triple_controlled_not(self):
-        test = CCCXTest(self)
+        test = Test(self)
 
-        params = [{'ctrl': ctrl, 'x': x, 'g': g} for g in range(2) for x in range(2) for ctrl in reversed(range(8))]
+        params = [{'ctrl': ctrl, 'x': x, 'g': g}
+                  for g in range(2) for x in range(2) for ctrl in reversed(range(8))]
         test.run_subtests(params)
 
 
-class CCCXTest(GateTest):
-    def __init__(self, test_case: unittest.TestCase):
-        super().__init__(TripleControlledNotExperiment(), test_case)
-        self._ctrl: int = 0
+class Test(GateTest):
 
-    def _update_params(self, initial_values: Dict[str, int]) -> None:
+    def __init__(self, test_case: unittest.TestCase):
+        super().__init__(Experiment(), test_case)
+        self._ctrl: int = 0b00
+
+    def _set_up(self, initial_values: ValuesMap) -> None:
         self._ctrl = initial_values['ctrl']
 
-    def _get_name(self, initial_values: Dict[str, int]) -> str:
-        return f'CCCX({self._ctrl}, {initial_values["x"]})_4_qubits'
-
     @property
-    def _custom_asserts(self) -> Dict[str, Tuple[Callable[[int], int], Callable[[int, int, int], str]]]:
+    def _computations(self) -> ComputationsMap:
         return {
-            'x': (
-                lambda x: (x + 1) % 2 if self._ctrl == 0b111 else x,
-                lambda x, y, v: f'Wrong value after experiment (expected CCCX({self._ctrl}, {x}) = {y}, got {v})'
-            )
+            'x': lambda x: (x + 1) % 2 if self._ctrl == 0b111 else x
         }
 
 
-class TripleControlledNotExperiment(QuantumExperiment):
-    @property
-    def _qregs_spec(self) -> List[Tuple[str, int]]:
-        return [
-            ('ctrl', 3),
-            ('x', 1),
-            ('g', 1),
-        ]
+class Experiment(QuantumExperiment):
 
     @property
     def _gate(self) -> Gate:
         return triple_controlled_not()
+
+    @property
+    def _qregs_spec(self) -> QRegsSpec:
+        return cccx_regs
 
 
 if __name__ == '__main__':
