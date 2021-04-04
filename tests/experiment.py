@@ -45,15 +45,16 @@ class QuantumExperiment(ABC):
 
 
 def _initialize(circuit: QuantumCircuit, values: ValuesMap) -> None:
-    for qreg in circuit.qregs:
+    qregs = circuit.qregs
+    for qreg in qregs:
         value = values.get(qreg.name, 0)
         value_str = as_bits_reversed(value, qreg.size)
 
-        for qubit, bit in enumerate(value_str):
+        for i, bit in enumerate(value_str):
             if bit == '1':
-                circuit.x(qreg[qubit])
+                circuit.x(qreg[i])
 
-    circuit.barrier(*circuit.qregs)
+    circuit.barrier(*qregs)
 
 
 def _append_gate(circuit: QuantumCircuit, gate: Gate) -> None:

@@ -4,7 +4,7 @@ from qiskit.circuit import Gate
 
 from gates.cccx import triple_controlled_not, cccx_regs
 from tests.experiment import QuantumExperiment
-from tests.test_gate import GateTest
+from tests.gate_test import GateTest
 from utils.typing_ import QRegsSpec, ComputationsMap, ValuesMap
 
 
