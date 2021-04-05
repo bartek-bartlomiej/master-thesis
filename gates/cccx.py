@@ -7,12 +7,17 @@ def triple_controlled_not():
     ctrl_qreg, x_qreg, g_qreg = circuit.qregs
 
     for _ in range(2):
-        circuit.ccx(ctrl_qreg[0], ctrl_qreg[1], g_qreg[0])
         circuit.ccx(ctrl_qreg[2], g_qreg[0], x_qreg[0])
+        circuit.ccx(ctrl_qreg[0], ctrl_qreg[1], g_qreg[0])
 
     return circuit.to_gate()
 
 
+""" definition of CCCX registers
+|c> - control register
+|x> - target register
+|g> - dirty ancillary register; initial state must be restored
+"""
 cccx_regs: QRegsSpec = [
     ('ctrl', 3),
     ('x', 1),
