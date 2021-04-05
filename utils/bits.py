@@ -1,7 +1,3 @@
-def get_bits(x, n):
-    return [int(x) for x in '{:0{size}b}'.format(x, size=n)]
-
-
 def as_bits(x: int, n: int) -> str:
     return f'{x:0{n}b}'
 
