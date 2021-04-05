@@ -4,13 +4,13 @@ from typing import List, Dict, Callable
 
 from qiskit.result import Result
 
-from tests.experiment import QuantumExperiment
+from tests.gate_experiment import GateExperiment
 
 NAME = 'test_experiment'
 
 
 class GateTest(ABC):
-    def __init__(self, experiment: QuantumExperiment, test_case: unittest.TestCase):
+    def __init__(self, experiment: GateExperiment, test_case: unittest.TestCase):
         self._experiment = experiment
         self.test_case = test_case
 

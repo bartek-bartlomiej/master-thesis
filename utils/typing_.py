@@ -10,3 +10,5 @@ Value = int
 Computation = Callable[[Value], Value]
 ComputationsMap = Dict[Name, Computation]
 ValuesMap = Dict[Name, Value]
+
+del Tuple, List, Callable, Dict

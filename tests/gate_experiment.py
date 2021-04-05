@@ -12,7 +12,8 @@ from utils.circuit_creation import create_circuit
 from utils.typing_ import QRegsSpec, Name, ValuesMap
 
 
-class QuantumExperiment(ABC):
+class GateExperiment(ABC):
+
     def __init__(self, backend: Backend = Aer.get_backend('qasm_simulator')):
         self._backend = backend
 

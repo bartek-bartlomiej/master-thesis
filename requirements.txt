@@ -1,1 +1,5 @@
 qiskit==0.25.0
+
+jupyter
+matplotlib
+pylatexenc
