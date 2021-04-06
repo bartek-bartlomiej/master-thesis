@@ -1,14 +1,14 @@
-import unittest
 from typing import Dict, Callable
+from unittest import TestCase
 
-from tests.gate_experiments.carry import Experiment
+from tests.gate_experiments.carry import CarryExperiment, Experiment
 from tests.gate_test import GateTest
 
 
-class Test(GateTest):
+class CarryTest(GateTest):
 
-    def __init__(self, constant: int, n: int, test_case: unittest.TestCase):
-        super().__init__(Experiment(constant, n), test_case)
+    def __init__(self, experiment: Callable[[int, int], CarryExperiment], constant: int, n: int, test_case: TestCase):
+        super().__init__(experiment(constant, n), test_case)
         self._constant = constant
         self._n = n
         self._x: int
@@ -21,3 +21,9 @@ class Test(GateTest):
         return {
             'carry': lambda _: (self._x + self._constant) >> self._n
         }
+
+
+class Test(CarryTest):
+
+    def __init__(self, constant: int, n: int, test_case: TestCase):
+        super().__init__(Experiment, constant, n, test_case)

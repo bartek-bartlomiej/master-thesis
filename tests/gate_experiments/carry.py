@@ -1,3 +1,5 @@
+from abc import ABCMeta
+
 from qiskit.circuit import Gate
 
 from gates.carry import carry, carry_regs
@@ -5,12 +7,14 @@ from tests.gate_experiment import GateExperiment
 from utils.typing_ import QRegsSpec
 
 
-class Experiment(GateExperiment):
-
+class CarryExperiment(GateExperiment, metaclass=ABCMeta):
     def __init__(self, constant: int, n: int):
         super().__init__()
         self._constant = constant
         self._n = n
+
+
+class Experiment(CarryExperiment):
 
     @property
     def _gate(self) -> Gate:
