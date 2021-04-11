@@ -12,7 +12,7 @@ from utils.typing_ import QRegsSpec
 
 
 def carry(constant: int, n: int) -> Gate:
-    return _carry(constant, n, carry_regs, CXGate, _cx_qubits, 0, '')
+    return _carry(constant, n, carry_regs, CXGate, _cx_qubits)
 
 
 def _cx_qubits(qregs: List[QuantumRegister], n: int) -> List[Qubit]:
@@ -30,20 +30,20 @@ def carry_regs(n: int) -> QRegsSpec:
     |carry> - output register - information about carry
     """
     if n == 1:
-        return [
-            ('x', n),
-            ('carry', 1)
-        ]
+        return {
+            'x': n,
+            'carry': 1
+        }
     else:
-        return [
-            ('x', n),
-            ('g', n-1),
-            ('carry', 1)
-        ]
+        return {
+            'x': n,
+            'g': n - 1,
+            'carry': 1
+        }
 
 
 def controlled_carry(constant: int, n: int) -> Gate:
-    return _carry(constant, n, controlled_carry_regs, CCXGate, _ccx_qubits, 1, 'C-')
+    return _carry(constant, n, controlled_carry_regs, CCXGate, _ccx_qubits, 'C-')
 
 
 def _ccx_qubits(qregs: List[QuantumRegister], n: int) -> List[Qubit]:
@@ -61,14 +61,14 @@ def controlled_carry_regs(n: int) -> QRegsSpec:
     |g> - dirty ancillary register; initial state must be restored
     |carry> - output register - information about carry
     """
-    return list(chain(
-        [('ctrl', 1)],
-        carry_regs(n)
-    ))
+    return {
+        'ctrl': 1,
+        **carry_regs(n)
+    }
 
 
 def double_controlled_carry(constant: int, n: int) -> Gate:
-    return _carry(constant, n, double_controlled_carry_regs, triple_controlled_not, _cccx_qubits, 1, 'CC-')
+    return _carry(constant, n, double_controlled_carry_regs, triple_controlled_not, _cccx_qubits, 'CC-')
 
 
 def _cccx_qubits(qregs: List[QuantumRegister], n: int) -> List[Qubit]:
@@ -86,12 +86,12 @@ def double_controlled_carry_regs(n: int) -> QRegsSpec:
     |g> - dirty ancillary register; initial state must be restored
     |carry> - output register - information about carry
     """
-    return [
-        ('ctrl', 2),
-        ('x', n),
-        ('g', n-1 if n >= 2 else 1),
-        ('carry', 1)
-    ]
+    return {
+        'ctrl': 2,
+        'x': n,
+        'g': n - 1 if n >= 2 else 1,
+        'carry': 1
+    }
 
 
 def _carry(constant: int,
@@ -99,10 +99,10 @@ def _carry(constant: int,
            regs_spec: Callable[[int], QRegsSpec],
            gate: Callable[[], Gate],
            gate_qubits: Callable[[List[QuantumRegister], int], List[Qubit]],
-           x_reg_index: int,
-           prefix: str) -> Gate:
+           prefix: str = '') -> Gate:
 
-    circuit = create_circuit(regs_spec(n), f'{prefix}Carry_({constant})')
+    regs_spec = regs_spec(n)
+    circuit = create_circuit(regs_spec, f'{prefix}Carry_({constant})')
     gate = gate()
     gate_qubits = gate_qubits(circuit.qregs, n)
 
@@ -110,7 +110,9 @@ def _carry(constant: int,
         if constant == 1:
             circuit.append(gate, gate_qubits)
     else:
-        x_qreg, g_qreg = circuit.qregs[x_reg_index], circuit.qregs[x_reg_index+1]
+        keys = list(regs_spec.keys())
+        x_qreg = circuit.qregs[keys.index('x')]
+        g_qreg = circuit.qregs[keys.index('g')]
         body = _carry_body(constant, n, x_qreg, g_qreg)
         body_qubits = list(chain(x_qreg, g_qreg))
 

@@ -3,8 +3,7 @@ from typing import Tuple, List, Callable, Dict
 Size = int
 Name = str
 
-QRegSpec = Tuple[Name, Size]
-QRegsSpec = List[QRegSpec]
+QRegsSpec = Dict[Name, Size]
 
 Value = int
 Computation = Callable[[Value], Value]

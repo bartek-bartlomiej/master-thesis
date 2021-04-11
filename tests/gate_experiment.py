@@ -42,7 +42,7 @@ class GateExperiment(ABC):
 
     @property
     def qreg_names(self) -> List[Name]:
-        return [name for (name, _) in self._qregs_spec]
+        return [name for name, _ in self._qregs_spec.items()]
 
 
 def _initialize(circuit: QuantumCircuit, values: ValuesMap) -> None:

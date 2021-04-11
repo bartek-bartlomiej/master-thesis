@@ -18,8 +18,8 @@ def triple_controlled_not():
 |x> - target register
 |g> - dirty ancillary register; initial state must be restored
 """
-cccx_regs: QRegsSpec = [
-    ('ctrl', 3),
-    ('x', 1),
-    ('g', 1)
-]
+cccx_regs: QRegsSpec = {
+    'ctrl': 3,
+    'x': 1,
+    'g': 1
+}
