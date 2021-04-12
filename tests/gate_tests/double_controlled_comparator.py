@@ -1,11 +1,11 @@
 import unittest
 from typing import Dict, Callable
 
-from tests.gate_experiments.double_controlled_carry import Experiment
-from tests.gate_tests.carry import CarryTest
+from tests.gate_experiments.double_controlled_comparator import Experiment
+from tests.gate_tests.comparator import ComparatorTest
 
 
-class Test(CarryTest):
+class Test(ComparatorTest):
 
     def __init__(self, constant: int, n: int, test_case: unittest.TestCase):
         super().__init__(Experiment, constant, n, test_case)

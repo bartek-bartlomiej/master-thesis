@@ -27,18 +27,18 @@ def carry_regs(n: int) -> QRegsSpec:
     """ return definition of carry gate registers
     |x> - input register
     |g> - dirty ancillary register; initial state must be restored
-    |carry> - output register - information about carry
+    |c> - output register - information about carry
     """
     if n == 1:
         return {
             'x': n,
-            'carry': 1
+            'c': 1
         }
     else:
         return {
             'x': n,
             'g': n - 1,
-            'carry': 1
+            'c': 1
         }
 
 
@@ -59,7 +59,7 @@ def controlled_carry_regs(n: int) -> QRegsSpec:
     |ctrl> - control register
     |x> - input register
     |g> - dirty ancillary register; initial state must be restored
-    |carry> - output register - information about carry
+    |c> - output register - information about carry
     """
     return {
         'ctrl': 1,
@@ -84,13 +84,13 @@ def double_controlled_carry_regs(n: int) -> QRegsSpec:
     |ctrl> - control register
     |x> - input register
     |g> - dirty ancillary register; initial state must be restored
-    |carry> - output register - information about carry
+    |c> - output register - information about carry
     """
     return {
         'ctrl': 2,
         'x': n,
         'g': n - 1 if n >= 2 else 1,
-        'carry': 1
+        'c': 1
     }
 
 
