@@ -6,6 +6,7 @@ from utils.typing_ import QRegsSpec
 
 
 class Experiment(AdderExperiment):
+
     @property
     def _gate(self) -> Gate:
         return controlled_adder(self._n)
