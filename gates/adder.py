@@ -26,32 +26,6 @@ def adder_regs(n: int) -> QRegsSpec:
 
 def controlled_adder(n: int) -> Gate:
     return _adder(n, controlled_adder_regs, CCXGate, _ccx_qubits, 'C-')
-    # circuit = create_circuit(adder_regs(n), 'C-Adder')
-    # ctrl_qreg, x_qreg, y_qreg = circuit.qregs
-    #
-    # for i in range(1, n):
-    #     circuit.cx(x_qreg[i], y_qreg[i])
-    #
-    # # circuit.cx(x_qreg[n-1], x_qreg[n]), x_qreg[n] <=> c_qreg
-    # for i in reversed(range(1, n-1)):
-    #     circuit.cx(x_qreg[i], x_qreg[i+1])
-    #
-    # for i in range(0, n-1):
-    #     circuit.ccx(x_qreg[i], y_qreg[i], x_qreg[i+1])
-    # # circuit.ccx(x_qreg[n-1], y_qreg[n-1], x_qreg[n]), x_qreg[n] <=> c_qreg
-    #
-    # for i in reversed(range(1, n)):
-    #     circuit.ccx(ctrl_qreg[0], x_qreg[i], y_qreg[i])  # <--
-    #     circuit.ccx(x_qreg[i-1], y_qreg[i-1], x_qreg[i])
-    #
-    # for i in range(1, n-1):
-    #     circuit.cx(x_qreg[i], x_qreg[i+1])
-    #
-    # circuit.ccx(ctrl_qreg[0], x_qreg[0], y_qreg[0])  # <--
-    # for i in range(1, n):  # <--
-    #     circuit.cx(x_qreg[i], y_qreg[i])
-    #
-    # return circuit.to_gate()
 
 
 def controlled_adder_regs(n: int) -> QRegsSpec:

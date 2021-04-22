@@ -9,10 +9,11 @@ class Test(IncrementerTest):
 
     def __init__(self, n: int, test_case: TestCase):
         super().__init__(Experiment, n, test_case)
+        self._ctrl: int
 
     def _set_up(self, initial_values: Dict[str, int]) -> None:
         super()._set_up(initial_values)
-        self._ctrl: int = initial_values['ctrl']
+        self._ctrl = initial_values['ctrl']
 
     @property
     def _computations(self) -> Dict[str, Callable[[int], int]]:

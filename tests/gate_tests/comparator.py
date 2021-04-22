@@ -15,7 +15,7 @@ class ComparatorTest(GateTest):
         self._x: int
 
     def _set_up(self, initial_values: Dict[str, int]) -> None:
-        self._x: int = initial_values['x']
+        self._x = initial_values['x']
 
     @property
     def _computations(self) -> Dict[str, Callable[[int], int]]:

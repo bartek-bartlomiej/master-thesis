@@ -13,4 +13,4 @@ class Experiment(GateExperiment):
 
     @property
     def _qregs_spec(self) -> QRegsSpec:
-        return cccx_regs
+        return cccx_regs()
