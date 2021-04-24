@@ -68,7 +68,3 @@ class ControlledConstantAdderCase(unittest.TestCase):
         params = [{'ctrl': ctrl, 'x': x} for ctrl in ctrl_values]
         test = Test(constant, n, self)
         test.run_subtests(params)
-
-
-if __name__ == '__main__':
-    unittest.main()

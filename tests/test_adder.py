@@ -23,6 +23,5 @@ class AdderTestCase(unittest.TestCase):
         params = [{'x': x, 'y': y}
                   for x in values
                   for y in values]
-
         test = Test(n, self)
         test.run_subtests(params)

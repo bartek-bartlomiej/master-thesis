@@ -19,5 +19,5 @@ class Test(CarryTest):
     def _computations(self) -> Dict[str, Callable[[int], int]]:
         computations = super()._computations
         return {
-            'c': lambda _: computations['c'](_) if self._ctrl == 0b1 else 0
+            'c': lambda c: computations['c'](c) if self._ctrl == 0b1 else c
         }

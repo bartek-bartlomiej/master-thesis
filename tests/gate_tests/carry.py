@@ -19,7 +19,7 @@ class CarryTest(GateTest):
     @property
     def _computations(self) -> Dict[str, Callable[[int], int]]:
         return {
-            'c': lambda _: (self._x + self._constant) >> self._n
+            'c': lambda c: c ^ ((self._x + self._constant) >> self._n)
         }
 
 

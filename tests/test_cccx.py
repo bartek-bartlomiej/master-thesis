@@ -10,7 +10,3 @@ class CCCXTestCase(unittest.TestCase):
         params = [{'ctrl': ctrl, 'x': x, 'g': g}
                   for g in range(2) for x in range(2) for ctrl in reversed(range(8))]
         test.run_subtests(params)
-
-
-if __name__ == '__main__':
-    unittest.main()

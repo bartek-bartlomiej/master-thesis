@@ -20,7 +20,7 @@ class ComparatorTest(GateTest):
     @property
     def _computations(self) -> Dict[str, Callable[[int], int]]:
         return {
-            'c': lambda _: 1 if self._x < self._constant else 0,
+            'c': lambda c: c ^ (1 if self._x < self._constant else 0),
         }
 
 
