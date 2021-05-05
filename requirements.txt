@@ -1,6 +1,6 @@
 qiskit==0.25.0
+numpy
 
 jupyter
 matplotlib
 pylatexenc
-numpy

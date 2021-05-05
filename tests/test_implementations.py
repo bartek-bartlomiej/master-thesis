@@ -6,9 +6,10 @@ from qiskit.utils import QuantumInstance
 
 from implementations.beauregard import BeauregardShor
 from implementations.haner import HanerShor
+from implementations.mix import MixShor
 from implementations.takahashi import TakahashiShor
 
-implementations_list = [BeauregardShor, TakahashiShor, HanerShor]
+implementations_list = [MixShor, BeauregardShor, TakahashiShor, HanerShor]
 circuit_types = [False, True]
 
 
