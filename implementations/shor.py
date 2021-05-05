@@ -122,6 +122,7 @@ class Shor(ABC):
             logger.info('Measurement = 0, order is trivial: r = 1.')
             return 1
 
+        logger.info(f'Measurement = {measurement}.')
         n = N.bit_length()
         phase = measurement / pow(2, 2 * n)
         logger.info(f'Measured phase = {phase}.')
@@ -134,7 +135,8 @@ class Shor(ABC):
             logger.info(f'Success, order: r = {r} from measurement {measurement}.')
             return r
         else:
-            logger.info(f'Numerator and denominator have a common factor, trying multiplication.')
+            logger.info(f'Denominator {r} is not the order. '
+                        f'Trying multiplication for case when numerator and denominator had a common factor.')
             r0 = r
             for i in range(2, n):
                 r = i * r0
