@@ -196,10 +196,9 @@ class Shor(ABC):
         aux_qreg = AncillaRegister(self._get_aux_register_size(n), 'aux')
 
         x_creg = [ClassicalRegister(1, f'xV{i}') for i in range(2 * n)]
-        aux_creg = ClassicalRegister(1, 'auxValue')
 
         name = f'{self._get_name(a, N)} (semi-classical QFT)'
-        circuit = QuantumCircuit(x_qreg, y_qreg, aux_qreg, *x_creg, aux_creg, name=name)
+        circuit = QuantumCircuit(x_qreg, y_qreg, aux_qreg, *x_creg, name=name)
 
         circuit.x(y_qreg[0])
 
@@ -220,10 +219,7 @@ class Shor(ABC):
 
             circuit.h(x_qreg)
             circuit.measure(x_qreg[0], x_creg[i][0])
-            circuit.measure(x_qreg[0], aux_creg[0])
-            circuit.x(x_qreg).c_if(aux_creg, 1)
-
-        circuit.measure(x_qreg[0], aux_creg[0])
+            circuit.x(x_qreg).c_if(x_creg[i], 1)
 
         return circuit
 
