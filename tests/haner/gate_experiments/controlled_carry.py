@@ -2,7 +2,7 @@ from qiskit.circuit import Gate
 
 from gates.haner.carry import controlled_carry, controlled_carry_regs
 from tests.haner.gate_experiments.carry import CarryExperiment
-from utils.typing_ import QRegsSpec
+from utils.custom_typing import QRegsSpec
 
 
 class Experiment(CarryExperiment):

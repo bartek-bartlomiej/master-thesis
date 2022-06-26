@@ -5,7 +5,7 @@ from qiskit.circuit import Gate
 from gates.haner.carry import controlled_carry
 from gates.haner.incrementer import controlled_incrementer
 from utils.circuit_creation import create_circuit
-from utils.typing_ import QRegsSpec
+from utils.custom_typing import QRegsSpec
 
 
 def controlled_constant_adder(constant: int, n: int) -> Gate:

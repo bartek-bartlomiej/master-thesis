@@ -5,7 +5,7 @@ from qiskit.circuit import Gate
 from gates.haner.comparator import double_controlled_comparator, double_controlled_comparator_regs
 from gates.haner.constant_adder import controlled_constant_adder
 from utils.circuit_creation import create_circuit
-from utils.typing_ import QRegsSpec
+from utils.custom_typing import QRegsSpec
 
 
 def double_controlled_constant_modulo_adder(constant: int, N: int, n: int) -> Gate:

@@ -6,7 +6,7 @@ from qiskit.circuit import Gate
 from gates.haner.carry import carry, carry_regs, controlled_carry, controlled_carry_regs, double_controlled_carry, \
     double_controlled_carry_regs
 from utils.circuit_creation import create_circuit
-from utils.typing_ import QRegsSpec
+from utils.custom_typing import QRegsSpec
 
 
 def comparator(constant: int, n: int) -> Gate:

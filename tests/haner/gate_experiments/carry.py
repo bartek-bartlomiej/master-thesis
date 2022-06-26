@@ -4,7 +4,7 @@ from qiskit.circuit import Gate
 
 from gates.haner.carry import carry, carry_regs
 from tests.gate_experiment import GateExperiment
-from utils.typing_ import QRegsSpec
+from utils.custom_typing import QRegsSpec
 
 
 class CarryExperiment(GateExperiment, metaclass=ABCMeta):

@@ -2,7 +2,7 @@ from qiskit.circuit import Gate
 
 from gates.haner.adder import controlled_adder, controlled_adder_regs
 from tests.haner.gate_experiments.adder import AdderExperiment
-from utils.typing_ import QRegsSpec
+from utils.custom_typing import QRegsSpec
 
 
 class Experiment(AdderExperiment):

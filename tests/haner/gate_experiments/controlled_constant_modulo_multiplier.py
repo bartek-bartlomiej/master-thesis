@@ -3,7 +3,7 @@ from qiskit.circuit import Gate
 from gates.haner.constant_modulo_multiplier import controlled_constant_modulo_multiplier, \
     controlled_constant_modulo_multiplier_regs
 from tests.gate_experiment import GateExperiment
-from utils.typing_ import QRegsSpec
+from utils.custom_typing import QRegsSpec
 
 
 class Experiment(GateExperiment):
