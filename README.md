@@ -82,7 +82,10 @@ print(factors)
 
 ## Running tests
 
-TODO instructions
+Run:
+```bash
+python -m unittest tests/test_implementations.py
+```
 
 ## License
 TODO
