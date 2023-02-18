@@ -88,7 +88,7 @@ python -m unittest tests/test_implementations.py
 ```
 
 ## License
-Copyright 2022 Bartłomiej Stępień
+Copyright (c) 2023 Bartłomiej Stępień
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

@@ -1,8 +1,8 @@
-# Abstract class providing project API and base logic of Shor algorithm. Based on corresponding class from Qiskit
-# project.
+# Abstract class providing project API and base logic of Shor algorithm. 
+# Based on corresponding class from Qiskit project.
 #
 # (C) Copyright IBM 2019, 2020.
-# (C) Copyright Bartłomiej Stępień 2021, 2022.
+# (C) Copyright Bartłomiej Stępień 2021-2023.
 #
 # This code is licensed under the Apache License, Version 2.0. You may
 # obtain a copy of this license in the LICENSE.txt file in the root directory
