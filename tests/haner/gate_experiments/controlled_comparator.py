@@ -2,7 +2,7 @@ from qiskit.circuit import Gate
 
 from gates.haner.comparator import controlled_comparator, controlled_comparator_regs
 from tests.haner.gate_experiments.comparator import ComparatorExperiment
-from utils.typing_ import QRegsSpec
+from utils.custom_typing import QRegsSpec
 
 
 class Experiment(ComparatorExperiment):

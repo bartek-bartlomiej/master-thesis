@@ -5,7 +5,7 @@ from qiskit.circuit import Gate, Qubit
 from qiskit.circuit.library import CXGate, CCXGate
 
 from utils.circuit_creation import create_circuit
-from utils.typing_ import QRegsSpec
+from utils.custom_typing import QRegsSpec
 
 
 def adder(n: int) -> Gate:

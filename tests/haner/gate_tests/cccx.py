@@ -2,7 +2,7 @@ import unittest
 
 from tests.haner.gate_experiments.cccx import Experiment
 from tests.gate_test import GateTest
-from utils.typing_ import ValuesMap, ComputationsMap
+from utils.custom_typing import ValuesMap, ComputationsMap
 
 
 class Test(GateTest):

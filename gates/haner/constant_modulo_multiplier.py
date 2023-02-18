@@ -4,7 +4,7 @@ from qiskit.circuit import Gate
 
 from gates.haner.constant_modulo_adder import double_controlled_constant_modulo_adder
 from utils.circuit_creation import create_circuit
-from utils.typing_ import QRegsSpec
+from utils.custom_typing import QRegsSpec
 
 
 def controlled_constant_modulo_multiplier(constant: int, N: int, n: int) -> Gate:

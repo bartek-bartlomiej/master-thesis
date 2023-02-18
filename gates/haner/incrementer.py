@@ -6,7 +6,7 @@ from qiskit.circuit import Gate, Qubit
 
 from gates.haner.adder import adder, controlled_adder
 from utils.circuit_creation import create_circuit
-from utils.typing_ import QRegsSpec
+from utils.custom_typing import QRegsSpec
 
 
 def incrementer(n: int) -> Gate:

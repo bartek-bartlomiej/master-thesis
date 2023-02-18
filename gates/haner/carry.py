@@ -8,7 +8,7 @@ from qiskit.circuit.library import CXGate, CCXGate
 from gates.haner.cccx import triple_controlled_not
 from utils.bits import as_bits_reversed
 from utils.circuit_creation import create_circuit
-from utils.typing_ import QRegsSpec
+from utils.custom_typing import QRegsSpec
 
 
 def carry(constant: int, n: int) -> Gate:

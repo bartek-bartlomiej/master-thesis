@@ -1,3 +1,17 @@
+# Abstract class providing project API and base logic of Shor algorithm. Based on corresponding class from Qiskit
+# project.
+#
+# (C) Copyright IBM 2019, 2020.
+# (C) Copyright Bartłomiej Stępień 2021, 2022.
+#
+# This code is licensed under the Apache License, Version 2.0. You may
+# obtain a copy of this license in the LICENSE.txt file in the root directory
+# of this source tree or at http://www.apache.org/licenses/LICENSE-2.0.
+#
+# Any modifications or derivative works of this code must retain this
+# copyright notice, and modified files need to carry a notice indicating
+# that they have been altered from the originals.
+
 from typing import Union, Tuple, Optional
 
 import numpy as np
@@ -26,24 +40,17 @@ class Shor(ABC):
     def __init__(self,
                  quantum_instance: Optional[
                      Union[QuantumInstance, BaseBackend, Backend]] = None) -> None:
-        """
-        Args:
-            quantum_instance: Quantum Instance or Backend
-
-        """
         self._quantum_instance = None
         if quantum_instance:
             self.quantum_instance = quantum_instance
 
     @property
     def quantum_instance(self) -> Optional[QuantumInstance]:
-        """ Returns quantum instance. """
         return self._quantum_instance
 
     @quantum_instance.setter
     def quantum_instance(self, quantum_instance: Union[QuantumInstance,
                                                        BaseBackend, Backend]) -> None:
-        """ Sets quantum instance. """
         if isinstance(quantum_instance, (BaseBackend, Backend)):
             quantum_instance = QuantumInstance(quantum_instance)
         self._quantum_instance = quantum_instance
@@ -196,10 +203,9 @@ class Shor(ABC):
         aux_qreg = AncillaRegister(self._get_aux_register_size(n), 'aux')
 
         x_creg = [ClassicalRegister(1, f'xV{i}') for i in range(2 * n)]
-        aux_creg = ClassicalRegister(1, 'auxValue')
 
         name = f'{self._get_name(a, N)} (semi-classical QFT)'
-        circuit = QuantumCircuit(x_qreg, y_qreg, aux_qreg, *x_creg, aux_creg, name=name)
+        circuit = QuantumCircuit(x_qreg, y_qreg, aux_qreg, *x_creg, name=name)
 
         circuit.x(y_qreg[0])
 
@@ -220,10 +226,7 @@ class Shor(ABC):
 
             circuit.h(x_qreg)
             circuit.measure(x_qreg[0], x_creg[i][0])
-            circuit.measure(x_qreg[0], aux_creg[0])
-            circuit.x(x_qreg).c_if(aux_creg, 1)
-
-        circuit.measure(x_qreg[0], aux_creg[0])
+            circuit.x(x_qreg).c_if(x_creg[i], 1)
 
         return circuit
 

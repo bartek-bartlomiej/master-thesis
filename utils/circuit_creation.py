@@ -1,6 +1,6 @@
 from qiskit import QuantumRegister, QuantumCircuit
 
-from utils.typing_ import Name, QRegsSpec
+from utils.custom_typing import Name, QRegsSpec
 
 
 def create_circuit(regs: QRegsSpec, name: Name) -> QuantumCircuit:
