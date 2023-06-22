@@ -141,6 +141,7 @@ class TestShor(unittest.TestCase):
 
         include_measurement = semi
         circuit = shor.construct_circuit(a_v, n_v, semi_classical=semi, measurement=include_measurement)
+        
         # modify circuit to measure output (down) register
         down_qreg = circuit.qregs[1]
         down_creg = ClassicalRegister(len(down_qreg), name='m')

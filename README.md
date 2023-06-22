@@ -1,6 +1,6 @@
 # Shor's Algorithm for IBM Qiskit
 
-TODO description, references
+This repository contains the code accompanying the master's thesis titled 'Shor's Algorithm for IBM Qiskit' defended in 2021. It serves as a scientific resource for students taking a course on quantum computing.
 
 ## Requirements
 
@@ -10,7 +10,7 @@ TODO description, references
 
 ## Installation
 
-1. Clone repository and enter project directory.
+1. Clone (or fork) repository and enter project directory.
 ```bash
 git clone https://github.com/bartek-bartlomiej/master-thesis.git
 
@@ -99,3 +99,48 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+
+## About master thesis
+Master thesis addressed the subject of variants and implementations of the Shor [[1]](#shor) algorithm - one of the famous examples of Quantum Computing. Methods of optimising the number of qubits in the quantum part of the Shor algorithm was presented as well as the design of a circuit implementing the modular exponentiation operation present in the papers by Beauregard [[2]](#beauregard), Takahashi [[3]](#takahashi), Häner [[4]](#haner) and the author's combination of variants in question:
+
+|                             | Beauregard | Takahashi | Häner           | Author's combination |
+|----------------------------:|:----------:|:---------:|:---------------:|:--------------------:|
+| **Width (w/o SCQT opt.)**   | $4n+2$     | $4n+1$    | $4n+1$          | $4n+1$               |
+| **Width (with SCQT opt.)**  | $2n+3$     | $2n+2$    | $2n+2$          | $2n+2$               |
+| **Size**                    | $O(n^4)$   | $O(n^4)$  | $O(n^3\log{n})$ | $O(n^4)$             |
+| **Depth**                   | $O(n^3)$   | $O(n^3)$  | $O(n^3\log{n})$ | $O(n^3)$             |
+
+### Evaluation
+An evaluation has been carried out to compare the developed implementations - the author's combination of variants performed best in terms of simulation time and circuit size. The regression line confirms the exponential growth of simulation time with an increase in the number of simulated qubits. 
+
+|                        | w/o SCQT opt.                                                                                                        | with SCQT opt.                                                                                                         |
+|-----------------------:|:--------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------:|
+| **Simulation time**    | ![The simulation time of circuits without SCQT optimization.](.readme/graph-time-scqt.png)                           | ![The simulation time of circuits with applied SCQT optimization.](.readme/graph-time-scqt.png)                        |
+| **Simulation memory**  | ![Memory consumption during the simulation of circuits without SCQT optimization.](.readme/graph-memory-no-scqt.png) | ![Memory consumption during the simulation of circuits with applied SCQT optimization.](.readme/graph-memory-scqt.png) |
+| **Depth**              | ![The depth of the circuit without SCQT optimization.](.readme/graph-depth-no-scqt.png)                              | In the case of applying, the depth of the circuit increases by $n$ value.                                              |
+| **Size**               | ![The size of the circuit without SCQT optimization.](.readme/graph-size-no-scqt.png)                                | In the case of applying, the size of the circuit increases by $n$ value.                                               |
+
+### Conclusions
+Each solution from the literature has its strengths:
+
+* Takahashi's variant - describes a circuit with the smallest size (among the three works).
+* Beauregard's variant - circuit with the smallest depth.
+* Häner's variant - circuit with the best asymptotic complexity of size.
+
+On the other hand, the authors' combination proved to be better than Takahashi's variant in terms of size and simulation time of the system.
+
+### References
+<a id="shor">[1]</a>
+Peter W. Shor, "Polynomial-Time Algorithms for Prime Factorization and Di-
+screte Logarithms on a Quantum Computer", [1997](https://arxiv.org/abs/quant-ph/9508027)
+
+<a id="beauregard">[2]</a> 
+Stephane Beaureagard, "Circuit for Shor’s algorithm using 2n+3 qubits", [2003](https://arxiv.org/abs/quant-ph/0205095)
+
+<a id="takahshi">[3]</a>
+Yasuhiro Takahashi, "Efficient Quantum Circuits For Arithmetic Operations And
+Their Applications", [2008](https://uec.repo.nii.ac.jp/?action=pages_view_main&active_action=repository_view_main_item_detail&item_id=1185&item_no=1&page_id=13&block_id=21)
+
+<a id="haner">[4]</a>
+Thomas Häner, "Factoring using 2n+2 qubits with Toffoli based modular multiplication", [2017](https://arxiv.org/abs/1611.07995)
+
